@@ -1,9 +1,11 @@
 ###statistical rethinking course 2023###
-###week 01 homework####
+###WEEK 01####
 
 require(ggplot2)
 
-##lecture 01
+
+##### Code from lectures#####
+##lecture 01##
 
 #function to toss a globe covered by water N times
 sim_globe <-function (p=0.7, N = 9){
@@ -64,9 +66,10 @@ for (i in 0:10) lines(c(i,i), c(0,tab_post[i+1]),led=4,col=4)
 
 
 
-
-####homework of questions###
+####Homework Questions####
 ##Q1 - globe tossing turned out to be 4 water and 11 land
+
+###samples of water and land for 15 tosses
 W <- 4
 L <- 11
 
@@ -78,7 +81,7 @@ compute_posterior <- function(W,L, poss) {
 }
 
 
-posterior <- compute_posterior(W = 4, L = 11, poss = c(0,0.25, 0.5, 0.75,1)) ##propbability of 0.84 at .25
+posterior <- compute_posterior(W = 4, L = 11, poss = c(0,0.25, 0.5, 0.75,1)) ##probability of 0.84 at .25
 
 posterior2 <- compute_posterior(W = 4, L = 11, poss = seq(0,1, by = 0.01)) ##curve looks cuter
 
@@ -98,8 +101,7 @@ sim_globe <-function (p, N){
 }
 
 
-post_samples <-rbeta (1e4,4+1, 11+1)
-
+post_samples <-rbeta (1e4,4+1, 11+1) ##main issue was this, needed help to know to do the 4+1 and 11+1
 pred_post <-sapply (post_samples, function(p) sum(sim_globe(p, 5)=="W"))
 
 tab_post <- table(pred_post)
@@ -109,10 +111,10 @@ tab_post_df <- as.data.frame(tab_post)
 
 ggplot(data = tab_post_df) + 
   geom_col(aes(x=pred_post, y=Freq)) + 
-  theme_classic() + xlab('Water Tosses') + ylab('Count')
+  theme_classic() + xlab('Water Samples') + ylab('Count')
 
 
-##Q3 - calculate the the probability of of 3 or more waters samples in the next 5 tossess
+##Q3 - calculate the the probability of of 3 or more waters samples in the next 5 tosses
 
 tab_post_df$prob = tab_post_df$Freq/1e4
 
@@ -120,6 +122,6 @@ tab_post_df$prob = tab_post_df$Freq/1e4
 with(tab_post_df, sum(prob[pred_post ==c("3","4", "5")])) ### 0.1797
 
 
-
 ## Q4 OPTIONAL
+
 
