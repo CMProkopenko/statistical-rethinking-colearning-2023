@@ -3,9 +3,11 @@
 
 require(ggplot2)
 
-
+#############################
 ##### Code from lectures#####
+#############################
 ##lecture 01##
+##############
 
 #function to toss a globe covered by water N times
 sim_globe <-function (p=0.7, N = 9){
@@ -25,7 +27,9 @@ compute_posterior <- function(the_sample, poss = c(0,0.25, 0.5, 0.75,1)) {
 
 compute_posterior(sim_globe())
 
-##lecture 02
+##############
+##lecture 02##
+##############
 
 sample <- c("W","L","W", "W","W","L","W","L","W")
 W <- sum(sample=="W") #number of W observed
@@ -64,9 +68,10 @@ pred_post <-sapply (post_samples, function(p) sum(sim_globe(0,10)=="W"))
 tab_post <- table(pred_post)
 for (i in 0:10) lines(c(i,i), c(0,tab_post[i+1]),led=4,col=4)
 
-
-
+##########################
 ####Homework Questions####
+##########################
+
 ##Q1 - globe tossing turned out to be 4 water and 11 land
 
 ###samples of water and land for 15 tosses
@@ -102,6 +107,11 @@ sim_globe <-function (p, N){
 
 
 post_samples <-rbeta (1e4,4+1, 11+1) ##main issue was this, needed help to know to do the 4+1 and 11+1
+
+#####
+###write code that samples from posterior distribution##
+####
+
 pred_post <-sapply (post_samples, function(p) sum(sim_globe(p, 5)=="W"))
 
 tab_post <- table(pred_post)
